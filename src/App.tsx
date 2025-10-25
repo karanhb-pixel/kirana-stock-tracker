@@ -5,6 +5,8 @@ import type { Item } from './types';
 import './App.css';
 type ParsedItem = Record<string, string | number | undefined>;
 
+
+
 function App() {
   const [items, setItems] = useState<Item[]>([]);
   const [filters, setFilters] = useState({
@@ -121,6 +123,25 @@ function App() {
     event.target.value = '';
   };
 
+  const saveToDatabase = async () => {
+    try {
+      const response = await fetch('/api/save-inventory', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(items),
+      });
+      if (response.ok) {
+        alert('Data saved to database successfully!');
+      } else {
+        alert('Failed to save data to database.');
+      }
+    } catch (error) {
+      alert('Error saving to database: ' + (error as Error).message);
+    }
+  };
+
   return (
     <div className="App">
       <header>
@@ -135,6 +156,7 @@ function App() {
           onFiltersChange={setFilters}
           onExport={exportToCSV}
           onImport={importFromCSV}
+          onSaveToDB={saveToDatabase}
         />
       </main>
     </div>
@@ -142,3 +164,4 @@ function App() {
 }
 
 export default App;
+

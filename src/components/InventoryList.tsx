@@ -8,9 +8,10 @@ interface InventoryListProps {
   onFiltersChange: (filters: { nextOrderDay: string; vendorCycle: string }) => void;
   onExport: () => void;
   onImport: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSaveToDB: () => void;
 }
 
-const InventoryList: React.FC<InventoryListProps> = ({ items, onUpdateItem, filters, onFiltersChange, onExport, onImport }) => {
+const InventoryList: React.FC<InventoryListProps> = ({ items, onUpdateItem, filters, onFiltersChange, onExport, onImport, onSaveToDB }) => {
   return (
     <div className="card" style={{ maxWidth: '100%', margin: '0 auto', padding: '1rem' }}>
       <h2 style={{ color: '#1e3a8a', fontSize: '1.25rem', marginBottom: '1rem' }}>Inventory List</h2>
@@ -25,9 +26,12 @@ const InventoryList: React.FC<InventoryListProps> = ({ items, onUpdateItem, filt
           style={{ display: 'none' }}
           id="import-csv"
         />
-        <label htmlFor="import-csv" style={{ padding: '0.75rem 1.5rem', background: '#10b981', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '1rem', minHeight: '48px' }}>
+        <label htmlFor="import-csv" style={{ padding: '0.75rem 1.5rem', marginRight: '0.5rem', background: '#10b981', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '1rem', minHeight: '48px' }}>
           Import CSV
         </label>
+        <button onClick={onSaveToDB} style={{ padding: '0.75rem 1.5rem', background: '#3b82f6', color: 'white', border: 'none', borderRadius: '4px', fontSize: '1rem', minHeight: '48px', cursor: 'pointer' }}>
+          Save to Database
+        </button>
       </div>
       <div style={{ marginBottom: '1rem' }}>
         <div style={{ marginBottom: '1rem' }}>
